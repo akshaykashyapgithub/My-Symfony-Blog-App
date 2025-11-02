@@ -53,11 +53,16 @@ php bin/console doctrine:migrations:migrate
 - View all posts in a clean, responsive blog layout
 
 ## Screenshots
-![Login](images/Login.png)
-![Register](images/Register.png)
-![Dashboard/All Posts](images/Dashboard.png)
-![Show Post](images/Show Post.png)
-![Edit Post](images/Edit Post.png)
+Login Page
+![Login](Images/Login.png)
+Register Page
+![Register](Images/Register.png)
+Dashboard
+![Dashboard/All Posts](Images/Dashboard.png)
+Show Post
+![Show Post](Images/ShowPost.png)
+Edit Post
+![Edit Post](Images/EditPost.png)
 
 ## License
 This project is open source and available under the MIT License.
