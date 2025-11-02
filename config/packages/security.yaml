@@ -4,14 +4,26 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+                default_target_path: app_post_index   # 👈 redirect here after login
+            logout:
+                path: app_logout
+                target: app_login 
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -27,6 +39,15 @@ security:
 
 when@test:
     security:
+        access_control:
+        # Allow public access to login and register pages
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+
+        # Only logged-in users can create, edit, or delete posts
+        - { path: ^/post/new, roles: ROLE_USER }
+        - { path: ^/post/\d+/edit, roles: ROLE_USER }
+        - { path: ^/post/\d+/delete, roles: ROLE_USER }
         password_hashers:
             # By default, password hashers are resource intensive and take time. This is
             # important to generate secure password hashes. In tests however, secure hashes

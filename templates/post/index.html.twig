@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block title %}
+Post index
+{% endblock %}
+
+
+{% block body %}
+
+{% if app.user %}
+<div class="logout-container">
+    <form action="{{ path('app_logout') }}" method="post">
+        <button class="logout-btn">Logout ({{ app.user.email }})</button>
+    </form>
+</div>
+{% endif %}
+    <h1 class="page-title">Symfony Blog Posts</h1>
+
+ {% if app.user %}
+        <div class="create-post-container">
+            <a href="{{ path('app_post_new') }}" class="btn-create">+ Create New Post</a>
+        </div>
+    {% endif %}
+<div class="posts-container">
+
+
+    {% for post in posts %}
+        <div class="post-card">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-meta">
+                By <strong>{{ post.author.email }}</strong> 
+                • {{ post.createdAt|date('M d, Y') }}
+            </p>
+            <p class="post-content">
+                {{ post.content|slice(0, 200) ~ '...' }}
+            </p>
+
+            <div class="post-actions">
+                <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn-view">Read More</a>
+                {% if app.user and app.user == post.author %}
+                    <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn-edit">Edit</a>
+                    <form method="post" action="{{ path('app_post_delete', {'id': post.id}) }}" style="display:inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                        <button class="btn-delete">Delete</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

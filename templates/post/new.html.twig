@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block body %}
+<div class="post-create-container">
+    <div class="post-create-card">
+        <h1 class="post-create-title">Create New Post</h1>
+
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.title, 'Title') }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-input'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.content, 'Content') }}
+                {{ form_widget(form.content, {'attr': {'class': 'form-textarea'}}) }}
+                {{ form_errors(form.content) }}
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-primary">Create Post</button>
+                
+            </div>
+            <div class="back-link">
+            <br>
+            <a href="{{ path('app_post_index') }}">← Back to posts</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
