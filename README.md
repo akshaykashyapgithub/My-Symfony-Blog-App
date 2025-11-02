@@ -1,4 +1,4 @@
-#Symfony Blog Project
+Simple Symfony Blog Project CRUD
 
 A simple blog application built with Symfony.
 Allows users to register, login, create, edit, and delete posts. Designed with a modern, responsive UI.
