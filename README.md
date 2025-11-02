@@ -64,5 +64,3 @@ Show Post
 Edit Post
 ![Edit Post](Images/EditPost.png)
 
-## License
-This project is open source and available under the MIT License.
